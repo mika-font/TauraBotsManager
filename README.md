@@ -1,18 +1,28 @@
-## Getting Started
+## Taura Bots Manager
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+O projeto Taura Bots Manager é um sistema de gerenciamento de atividades e membros para o Grupo de Pesquisa e Competição Taura Bots, utiliza a linguagem Java com a biblioteca JavaFX para a interface gráfica. Ele oferece, por hora, funcionalidades básicas de CRUD (Create, Read, Update, Delete) para gerenciar membros e atividades do grupo.
 
-## Folder Structure
+## Estrutura de Pastas
 
-The workspace contains two folders by default, where:
+O workspace contém duas pastas por padrão, onde:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- `src`: Contém os arquivos fonte do projeto;
+- `lib`: Contém as dependências do projeto;
+- `bin`: Contém os arquivos compilados do projeto;
+- `resources`: Contém os recursos estáticos do projeto, como imagens e arquivos de configuração.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Requisitos do Sistema
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+- Java Development Kit (JDK) 11 ou superior
+- JavaFX SDK 11 ou superior
+- IDE recomendada: IntelliJ IDEA, Eclipse ou VSCode com suporte a Java
 
-## Dependency Management
+## Futuras Implementações
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+- Implementação de um banco de dados para armazenamento persistente dos dados;
+- Adição de funcionalidades avançadas de busca e filtragem;
+- Melhoria da interface gráfica com mais opções de personalização;
+- Implementação de autenticação e controle de acesso para diferentes níveis de usuários;
+- Integração com serviços externos, como calendários e planilhas online.
+- Modularização do código para facilitar a manutenção e expansão futura.
+- Implementação do Taura Bar, um sistema de gerenciamento do bar e cafeteria do grupo.
