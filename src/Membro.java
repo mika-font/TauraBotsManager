@@ -1,7 +1,7 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class Membros {
+public class Membro {
     private String nome;
     private String email;
     private String telefone;
@@ -9,7 +9,7 @@ public class Membros {
     private int matricula;
 
     // Construtor
-    public Membros(String nome, String email, String telefone, String cargo, int matricula) {
+    public Membro(String nome, String email, String telefone, String cargo, int matricula) {
         setNome(nome);
         setEmail(email);
         setTelefone(telefone);
