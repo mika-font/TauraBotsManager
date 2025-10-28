@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "App",
+        "request": "launch",
+        "mainClass": "App",
+        "projectName": "trabalhoFinalPoo_c02868c6",
+        "vmArgs": [
+          "--enable-native-access=javafx.graphics",
+          "--module-path",
+          "C:/Program Files/Java/javafx-sdk-25/lib",
+          "--add-modules",
+          "javafx.base,javafx.graphics,javafx.controls,javafx.fxml"
+        ]
+      }
+    ]
+}
