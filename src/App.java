@@ -3,6 +3,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 
+import java.util.List;      // Para manipulação de listas
+import java.io.FileWriter;  // Para manipulação de arquivos
+import java.io.FileReader;  // Para manipulação de arquivos
+import java.io.IOException; // Para manipulação de exceções
+
 public class App extends Application {
     public static void main(String[] args) throws Exception {
         launch(args);
