@@ -1,18 +1,27 @@
 import java.util.Date;
 
 abstract class Atividade {
+    protected static int Ids = 0;
+    
+    protected int id;
     protected String titulo;
     protected String descricao;
     protected String status;
     protected Date prazo;
 
     public Atividade(String titulo, String descricao, String status, Date prazo) {
+        this.id = Ids;
         setTitulo(titulo);
         setDescricao(descricao);
         setStatus(status);
         setPrazo(prazo);
+        Ids++;
     }
 
+    public int getId() {
+        return id;
+    }
+    
     public String getTitulo() {
         return titulo;
     }
@@ -173,6 +182,7 @@ public class Evento extends Atividade {
     // Método Abstrato de Atividade
     @Override
     public void exibirDetalhes() {
+        System.out.println("ID: " + getId());
         System.out.println("Evento: " + getTitulo());
         System.out.println("Descrição: " + getDescricao());
         System.out.println("Status: " + getStatus());

@@ -74,6 +74,7 @@ public class Tarefa extends Atividade {
     // Método Abstrato de Atividade
     @Override
     public void exibirDetalhes() {
+        System.out.println("ID: " + getId());
         System.out.println("Tarefa: " + getTitulo());
         System.out.println("Descrição: " + getDescricao());
         System.out.println("Status: " + getStatus());
