@@ -1,5 +1,7 @@
 // JAVA FX IMPORTS
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -154,6 +156,11 @@ public class App extends Application {
         primaryStage.setTitle(APP_TITLE);
         primaryStage.setWidth(APP_WIDTH);
         primaryStage.setHeight(APP_HEIGHT);
+
+        Parent root = FXMLLoader.load(getClass().getResource("projetoGUI.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+
         primaryStage.show();
         try {
             carregarDados();
