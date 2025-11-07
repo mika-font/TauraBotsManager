@@ -69,9 +69,30 @@ public class Membro {
     }
 
     // Exibir informações do membro
-    public String exibirMembro() {
-        return "Nome: " + getNome() + "\nEmail: " + getEmail() + "\nTelefone: " + getTelefone() + "\nCargo: "
-                + getCargo() + "\nMatrícula: " + getMatricula();
+    public String toString() {
+        return getNome() + ";" + getEmail() + ";" + getTelefone() + ";" + getCargo() + ";" + getMatricula();
+    }
+
+    // String para Objeto
+    public static Membro parseMembro(String linha) {
+        if (linha == null || linha.trim().isEmpty()) {
+            throw new IllegalArgumentException("A linha fornecida é nula ou vazia.");
+        }
+
+        String[] partes = linha.split(";");
+
+        if (partes.length != 5) {
+            throw new IllegalArgumentException("Formato de linha inválido para criar um Membro.");
+        }
+
+        String nome = partes[0];
+        String email = partes[1];
+        String telefone = partes[2];
+        String cargo = partes[3];
+        int matricula = Integer.parseInt(partes[4]);
+
+
+        return new Membro(nome, email, telefone, cargo, matricula);
     }
 
     // Validação de Campos

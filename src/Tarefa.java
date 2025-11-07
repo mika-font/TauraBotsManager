@@ -1,9 +1,13 @@
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.StringJoiner;
+import java.lang.IllegalArgumentException;
+
 
 public class Tarefa extends Atividade {
+    private static final java.text.SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private List<Membro> responsaveis = new ArrayList<>();
     private String tipo;
 
@@ -41,6 +45,14 @@ public class Tarefa extends Atividade {
         return sj.toString();
     }
 
+    public String getMatriculasResponsaveis() {
+        StringJoiner sj = new StringJoiner(", ");
+        for (Membro membro : this.responsaveis) {
+            sj.add(String.valueOf(membro.getMatricula()));
+        }
+        return sj.toString();
+    }
+
     // Métodos para Gerenciar Responsáveis
     public void adicionarResponsavel(Membro membro) {
         if (!responsaveis.contains(membro)) {
@@ -53,6 +65,40 @@ public class Tarefa extends Atividade {
             throw new IllegalArgumentException("A Tarefa deve ter no mínimo um Membro responsável.");
         }
         responsaveis.remove(membro);
+    }
+
+    public static Tarefa parseTarefa(String linha) {
+        if (linha == null || linha.trim().isEmpty()) {
+            throw new IllegalArgumentException("A linha fornecida é nula ou vazia.");
+        }
+
+        String[] partes = linha.split(";");
+
+        if (partes.length != 7) {
+            throw new IllegalArgumentException("Formato de linha inválido para criar uma Tarefa.");
+        }
+
+        String titulo = partes[1];
+        String descricao = partes[2];
+        String status = partes[3];
+        Date prazo;
+        List<Membro> membrosResponsaveis = new ArrayList<>();
+        String tipo = partes[6];
+
+        try {
+            prazo = dateFormat.parse(partes[4]);
+        } catch (java.text.ParseException e) {
+            throw new IllegalArgumentException("Erro ao converter data: " + e.getMessage());
+        }
+
+        String[] matriculasStr = partes[5].split(",");
+        for (String matriculaStr : matriculasStr) {
+            int matricula = Integer.parseInt(matriculaStr.trim());
+            Membro membro = TauraManager.buscarMembro(String.valueOf(matricula));
+            membrosResponsaveis.add(membro);
+        }
+
+        return new Tarefa(titulo, descricao, status, prazo, membrosResponsaveis, tipo);
     }
 
     // Métodos de Validação
@@ -73,14 +119,8 @@ public class Tarefa extends Atividade {
 
     // Método Abstrato de Atividade
     @Override
-    public void exibirDetalhes() {
-        System.out.println("ID: " + getId());
-        System.out.println("Tarefa: " + getTitulo());
-        System.out.println("Descrição: " + getDescricao());
-        System.out.println("Status: " + getStatus());
-        System.out.println("Prazo: " + getPrazo());
-        System.out.println("Tipo: " + getTipo());
-        System.out.println("Responsáveis: " + getNomesResponsaveis());
-        System.out.println("-----------------------");
+    public String toString() {
+       return "TAREFA: " + getId() + ";" + getTitulo() + ";" + getDescricao() + ";" + getStatus() + ";" + dateFormat.format(getPrazo()) + ";"
+               + getMatriculasResponsaveis() + ";" + getTipo();
     }
 }

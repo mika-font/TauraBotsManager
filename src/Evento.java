@@ -1,8 +1,8 @@
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 abstract class Atividade {
     protected static int Ids = 0;
-    
     protected int id;
     protected String titulo;
     protected String descricao;
@@ -110,10 +110,11 @@ abstract class Atividade {
         return true;
     }
 
-    public abstract void exibirDetalhes();
+    public abstract String toString();
 }
 
 public class Evento extends Atividade {
+    private static final java.text.SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private String local;
     private Date dataInicio;
     private Date dataFim;
@@ -149,6 +150,36 @@ public class Evento extends Atividade {
         this.dataFim = dataFim;
     }
 
+    public static Evento parseEvento(String linha) {
+        if (linha == null || linha.trim().isEmpty()) {
+            throw new IllegalArgumentException("A linha fornecida é nula ou vazia.");
+        }
+
+        String[] partes = linha.split(";");
+
+        if (partes.length != 8) {
+            throw new IllegalArgumentException("Formato de linha inválido para criar um Evento.");
+        }
+
+        String titulo = partes[1];
+        String descricao = partes[2];
+        String status = partes[3];
+        Date prazo;
+        Date dataInicio;
+        Date dataFim;
+        String local = partes[5];
+
+        try {
+            prazo = dateFormat.parse(partes[4]);
+            dataInicio = dateFormat.parse(partes[6]);
+            dataFim = dateFormat.parse(partes[7]);
+        } catch (java.text.ParseException e) {
+            throw new IllegalArgumentException("Erro ao converter datas: " + e.getMessage());
+        }
+
+        return new Evento(titulo, descricao, status, prazo, local, dataInicio, dataFim);
+    }
+
     // Métodos de Validação
     public boolean validarLocal(String local) {
         if (local == null || local.trim().isEmpty()) {
@@ -181,14 +212,8 @@ public class Evento extends Atividade {
 
     // Método Abstrato de Atividade
     @Override
-    public void exibirDetalhes() {
-        System.out.println("ID: " + getId());
-        System.out.println("Evento: " + getTitulo());
-        System.out.println("Descrição: " + getDescricao());
-        System.out.println("Status: " + getStatus());
-        System.out.println("Prazo: " + getPrazo());
-        System.out.println("Local: " + getLocal());
-        System.out.println("Data de Início: " + getDataInicio());
-        System.out.println("Data de Fim: " + getDataFim());
+    public String toString() {
+        return "EVENTO: " + getId() + ";" + getTitulo() + ";" + getDescricao() + ";" + getStatus() + ";" + dateFormat.format(getPrazo()) + ";"
+                + getLocal() + ";" + dateFormat.format(getDataInicio()) + ";" + dateFormat.format(getDataFim());
     }
 }

@@ -1,0 +1,32 @@
+# ----------------------------------------
+# 1. Arquivos de Dados e Persistência
+# ----------------------------------------
+dados_membros.txt
+dados_atividades.txt
+
+# ----------------------------------------
+# 2. Arquivos de Compilação e Binários Java
+# ----------------------------------------
+*.class
+*.jar
+*.war
+*.ear
+bin/
+target/
+
+# ----------------------------------------
+# 3. Arquivos de IDEs Comuns
+# ----------------------------------------
+
+# Eclipse/IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# VS Code
+.vscode/
+
+# NetBeans
+nbproject/private/
+build/
