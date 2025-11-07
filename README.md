@@ -7,8 +7,6 @@ O projeto Taura Bots Manager é um sistema de gerenciamento de atividades e memb
 O workspace contém duas pastas por padrão, onde:
 
 - `src`: Contém os arquivos fonte do projeto;
-- `lib`: Contém as dependências do projeto;
-- `bin`: Contém os arquivos compilados do projeto;
 - `resources`: Contém os recursos estáticos do projeto, como imagens e arquivos de configuração.
 
 ## Requisitos do Sistema
