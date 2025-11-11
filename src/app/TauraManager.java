@@ -1,3 +1,9 @@
+package app;
+
+import model.Membro;
+import model.Atividade;
+import model.Tarefa;
+import model.Evento;
 
 // EXCEPTIONS IMPORTS
 import java.io.IOException;
@@ -49,9 +55,6 @@ public class TauraManager {
         } catch (IOException e) {
             System.err.println("Erro ao salvar dados de atividades: " + e.getMessage());
         }
-
-        membros.clear();
-        atividades.clear();
     }
 
     public static void carregarDados() {
@@ -61,7 +64,8 @@ public class TauraManager {
         try (Scanner leitor = new Scanner(new File(DADOS_MEMBROS_FILE))) {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
-                if (linha.trim().isEmpty()) continue;
+                if (linha.trim().isEmpty())
+                    continue;
                 try {
                     Membro membro = Membro.parseMembro(linha);
                     membros.put(String.valueOf(membro.getMatricula()), membro);
@@ -79,15 +83,16 @@ public class TauraManager {
         try (Scanner leitor = new Scanner(new File(DADOS_ATIVIDADE_FILE))) {
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
-                if (linha.trim().isEmpty()) continue;
+                if (linha.trim().isEmpty())
+                    continue;
 
                 String tipo = linha.substring(0, linha.indexOf(";"));
 
                 try {
-                    if(tipo.equals("TAREFA")) {
+                    if (tipo.equals("TAREFA: ")) {
                         Atividade atividade = Tarefa.parseTarefa(linha);
                         adicionarAtividade(atividade);
-                    } else if(tipo.equals("EVENTO")) {
+                    } else if (tipo.equals("EVENTO: ")) {
                         Atividade atividade = Evento.parseEvento(linha);
                         adicionarAtividade(atividade);
                     }
@@ -101,6 +106,12 @@ public class TauraManager {
         } catch (IllegalArgumentException e) {
             System.err.println("Erro ao carregar dados de atividades: " + e.getMessage());
         }
+
+        int maxId = atividades.stream()
+                .mapToInt(Atividade::getId)
+                .max()
+                .orElse(0);
+        Atividade.resetIds(maxId);
     }
 
     // CRUD para Membros - Id único: matrícula

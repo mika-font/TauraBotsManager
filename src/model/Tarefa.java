@@ -1,10 +1,13 @@
+package model;
+
+import app.TauraManager;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 import java.lang.IllegalArgumentException;
-
 
 public class Tarefa extends Atividade {
     private static final java.text.SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

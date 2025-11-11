@@ -1,3 +1,7 @@
+package app;
+
+import controller.FXMLControlerApp;
+
 // JAVA FX IMPORTS
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

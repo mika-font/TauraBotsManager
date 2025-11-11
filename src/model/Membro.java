@@ -1,3 +1,5 @@
+package model;
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -39,7 +41,7 @@ public class Membro {
     }
 
     public void setNome(String nome) {
-        if (validarNome(nome)) { 
+        if (validarNome(nome)) {
             this.nome = nome;
         }
     }
@@ -90,7 +92,6 @@ public class Membro {
         String telefone = partes[2];
         String cargo = partes[3];
         int matricula = Integer.parseInt(partes[4]);
-
 
         return new Membro(nome, email, telefone, cargo, matricula);
     }
@@ -171,9 +172,8 @@ public class Membro {
             throw new IllegalArgumentException("O cargo deve conter apenas letras e espaços.");
         }
 
-        if (cargo.equals("Membro Padrão") || cargo.equals("Capitão") || cargo.equals("Financeiro")) {
-            throw new IllegalArgumentException(
-                    "Cargo inválido. Os cargos permitidos são: Membro Padrão, Capitão, Financeiro.");
+        if (!cargo.equals("Membro Padrão") && !cargo.equals("Capitão") && !cargo.equals("Financeiro")) {
+            throw new IllegalArgumentException("Cargo inválido. Opções válidas: Membro Padrão, Capitão, Financeiro.");
         }
 
         return true; // Cargo válido
