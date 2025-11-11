@@ -2,7 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
@@ -28,31 +28,38 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Button id="btn_cadastrar_membro" layoutX="25.0" layoutY="101.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Cadastrar Membro">
+                  <Button fx:id="btnCadastrarMembro" id="btn_cadastrar_membro" layoutX="25.0" layoutY="101.0" mnemonicParsing="false" onAction="#handleCadastrarMembro" prefHeight="31.0" prefWidth="150.0" text="Cadastrar Membro">
                      <styleClass>
                         <String fx:value="btn" />
                         <String fx:value="btn_cadastrar_membro" />
-                     </styleClass></Button>
-                  <Button id="btn_cadastrar_tarefa" layoutX="25.0" layoutY="138.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Cadastrar Tarefa">
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="btnCadastrarTarefa" id="btn_cadastrar_tarefa" layoutX="25.0" layoutY="138.0" mnemonicParsing="false" onAction="#handleCadastrarTarefa" prefHeight="31.0" prefWidth="150.0" text="Cadastrar Tarefa">
                      <styleClass>
                         <String fx:value="btn" />
                         <String fx:value="btn_cadastrar_tarefa" />
-                     </styleClass></Button>
-                  <Button id="btn_salvar_dados" layoutX="25.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Salvar Dados" />
-                  <Pane id="painel_avisos" layoutY="350.0" prefHeight="150.0" prefWidth="200.0" />
-                  <Button id="btn_salvar_dados" layoutX="25.0" layoutY="250.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Carregar Dados">
-                     <styleClass>
-                        <String fx:value="btn" />
-                        <String fx:value="btn_carregar_dados" />
                      </styleClass>
                   </Button>
-                  <Button id="btn_cadastrar_evento" layoutX="25.0" layoutY="175.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Cadastrar Evento">
+                  <Button fx:id="btnCadastrarEvento" id="btn_cadastrar_evento" layoutX="25.0" layoutY="175.0" mnemonicParsing="false" onAction="#handleCadastrarEvento" prefHeight="31.0" prefWidth="150.0" text="Cadastrar Evento">
                      <styleClass>
                         <String fx:value="btn" />
                         <String fx:value="btn_cadastrar_evento" />
                      </styleClass>
                   </Button>
-               </children></AnchorPane>
+                  <Button fx:id="btnSalvarDados" id="btn_salvar_dados" layoutX="25.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleSalvarDados" prefHeight="31.0" prefWidth="150.0" text="Salvar Dados">
+                     <styleClass>
+                        <String fx:value="btn" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="btnCarregarDados" id="btn_carregar_dados" layoutX="25.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleCarregarDados" prefHeight="31.0" prefWidth="150.0" text="Carregar Dados">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn_carregar_dados" />
+                     </styleClass>
+                  </Button>
+                  <Pane fx:id="painelAvisos" id="painel_avisos" layoutY="350.0" prefHeight="150.0" prefWidth="200.0" />
+               </children>
+            </AnchorPane>
          </children>
       </VBox>
       <Pane prefHeight="500.0" prefWidth="500.0">
@@ -61,89 +68,37 @@
               <tabs>
                 <Tab text="Tarefas">
                   <content>
-                    <AnchorPane id="painel_tarefas" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Pane id="tarefa" layoutX="33.0" layoutY="33.0" prefHeight="159.0" prefWidth="435.0">
-                                 <children>
-                                    <Text layoutX="10.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição:" wrappingWidth="60.0" />
-                                    <Text layoutX="10.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Título:" wrappingWidth="60.0" />
-                                    <Text layoutX="10.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" wrappingWidth="60.0" />
-                                    <Text layoutX="10.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prazo:" wrappingWidth="60.0" />
-                                    <Text layoutX="10.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Responsáveis:" wrappingWidth="94.98828125" />
-                                    <Text layoutX="10.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo:" wrappingWidth="38.98828125" />
-                                    <Pane layoutX="291.0" layoutY="-2.0" prefHeight="163.0" prefWidth="144.0">
-                                       <children>
-                                          <Button id="btn_alterar_tarefa" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="Alterar Tarefa" />
-                                          <Button id="btn_deletar_tarefa" layoutX="18.0" layoutY="51.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="Deletar Tarefa" />
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </Pane>
-                              <ScrollBar id="scrollbar" layoutX="486.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="14.0" />
-                           </children>
-                        </AnchorPane>
+                    <ScrollPane fitToWidth="true" fitToHeight="true">
+                      <content>
+                        <VBox fx:id="vboxTarefas" spacing="10.0" style="-fx-padding: 10;">
+                          <!-- Tarefas serão adicionadas dinamicamente aqui -->
+                        </VBox>
+                      </content>
+                    </ScrollPane>
                   </content>
                 </Tab>
                 <Tab text="Eventos">
                   <content>
-                    <AnchorPane id="painel_eventos" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Pane id="evento" layoutX="33.0" layoutY="32.0" prefHeight="195.0" prefWidth="435.0">
-                                 <children>
-                                    <Text layoutX="10.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição:" wrappingWidth="60.0" />
-                                    <Text layoutX="10.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Título:" wrappingWidth="60.0" />
-                                    <Text layoutX="10.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Local:" wrappingWidth="60.0" />
-                                    <Text layoutX="10.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prazo:" wrappingWidth="60.0" />
-                                    <Text layoutX="10.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Fim:" wrappingWidth="94.98828125" />
-                                    <Text layoutX="10.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Início:" wrappingWidth="80.98828125" />
-                                    <Text layoutX="10.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" wrappingWidth="60.0" />
-                                    <Pane layoutX="291.0" layoutY="-2.0" prefHeight="163.0" prefWidth="144.0">
-                                       <children>
-                                          <Button id="btn_alterar_evento" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="Alterar Evento" />
-                                          <Button id="btn_deletar_evento" layoutX="18.0" layoutY="51.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="Deletar Evento" />
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </Pane>
-                              <ScrollBar layoutX="486.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="474.0" prefWidth="14.0" />
-                           </children>
-                        </AnchorPane>
+                    <ScrollPane fitToWidth="true" fitToHeight="true">
+                      <content>
+                        <VBox fx:id="vboxEventos" spacing="10.0" style="-fx-padding: 10;">
+                          <!-- Eventos serão adicionados dinamicamente aqui -->
+                        </VBox>
+                      </content>
+                    </ScrollPane>
                   </content>
                 </Tab>
-                  <Tab text="Membros">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Pane id="membro" layoutX="23.0" layoutY="23.0" prefHeight="200.0" prefWidth="440.0" styleClass="membro">
-                                 <children>
-                                    <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:" wrappingWidth="60.0" />
-                                    <Text layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Matrícula:" wrappingWidth="60.0" />
-                                    <Text layoutX="14.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="60.0" />
-                                    <Text layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefone:" wrappingWidth="60.0" />
-                                    <Text layoutX="14.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cargo:" wrappingWidth="60.0" />
-                                    <Pane id="painel_opcoes" layoutX="300.0" prefHeight="200.0" prefWidth="140.0" styleClass="painel_opcoes">
-                                       <children>
-                                          <Button id="btn_alterar_membro" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="112.0" text="Alterar Membro">
-                                             <styleClass>
-                                                <String fx:value="btn" />
-                                                <String fx:value="btn_alterar_membro" />
-                                             </styleClass>
-                                          </Button>
-                                          <Button id="btn_deletar_membro" layoutX="14.0" layoutY="51.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="112.0" text="Deletar Membro">
-                                             <styleClass>
-                                                <String fx:value="btn" />
-                                                <String fx:value="btn_deletar_membro" />
-                                             </styleClass>
-                                          </Button>
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </Pane>
-                              <ScrollBar layoutX="486.0" orientation="VERTICAL" prefHeight="472.0" prefWidth="14.0" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </Tab>
+                <Tab text="Membros">
+                  <content>
+                    <ScrollPane fitToWidth="true" fitToHeight="true">
+                      <content>
+                        <VBox fx:id="vboxMembros" spacing="10.0" style="-fx-padding: 10;">
+                          <!-- Membros serão adicionados dinamicamente aqui -->
+                        </VBox>
+                      </content>
+                    </ScrollPane>
+                  </content>
+                </Tab>
               </tabs>
             </TabPane>
          </children>

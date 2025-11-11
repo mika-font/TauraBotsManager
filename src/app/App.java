@@ -10,9 +10,8 @@ import javafx.scene.Scene;
 import javafx.stage.WindowEvent;
 
 public class App extends Application {
-    private static final String FXML_FILE_PATH = "/resources/central.fxml";
+    private static final String FXML_FILE_PATH = "resources/central.fxml";
     private static final String APP_TITLE = "Taura Bots Manager";
-    // private static final String CSS_FILE_PATH = "/resources/style.css";
     private static final String ICON_FILE_PATH = "/resources/logo_taura.png";
 
     private static TauraManager Manager;
@@ -23,9 +22,13 @@ public class App extends Application {
         Manager = new TauraManager(); // Inicializa o gerenciador de dados
 
         primaryStage.setTitle(APP_TITLE);
-        primaryStage.getIcons().add(new javafx.scene.image.Image(ICON_FILE_PATH));
+        try {
+            primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream(ICON_FILE_PATH)));
+        } catch (Exception e) {
+            System.err.println("Ícone não encontrado: " + e.getMessage());
+        }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_FILE_PATH));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(FXML_FILE_PATH));
         Parent root = loader.load();
         FXMLControlerApp controller = loader.getController();
         controller.setManager(Manager);
@@ -33,7 +36,7 @@ public class App extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
 
-        /*primaryStage.setOnCloseRequest((WindowEvent event) -> {
+        primaryStage.setOnCloseRequest((WindowEvent event) -> {
             System.out.println("Salvando dados antes de sair...");
             try {
                 Manager.salvarDados();
@@ -41,7 +44,7 @@ public class App extends Application {
             } catch (Exception e) {
                 System.err.println("Erro ao salvar dados na saída: " + e.getMessage());
             }
-        });*/
+        });
 
         primaryStage.show();
     }
