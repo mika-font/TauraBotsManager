@@ -71,9 +71,10 @@ public class Tarefa extends Atividade {
         responsaveis.remove(membro);
     }
 
+    // Método de Parsing
     public static Tarefa parseTarefa(String linha) throws IllegalArgumentException {
         try {
-            // Remove o prefixo "TAREFA: ;"
+            // Verifica se a linha começa com "TAREFA: ;"
             if (!linha.startsWith("TAREFA: ;")) {
                 throw new IllegalArgumentException("Formato inválido: linha não começa com 'TAREFA: ;'");
             }
@@ -97,12 +98,13 @@ public class Tarefa extends Atividade {
             List<Membro> membrosResponsaveis = new ArrayList<>();
             String matriculasStr = partes[5].trim();
             
+            // Se houver responsáveis listados, faz o parsing
             if (!matriculasStr.isEmpty() && !matriculasStr.equals("SEM_RESPONSAVEIS")) {
                 String[] matriculas = matriculasStr.split(",");
                 for (String matricula : matriculas) {
                     String matTrim = matricula.trim();
                     if (!matTrim.isEmpty()) {
-                        try {
+                        try { // Busca o Membro pelo número de matrícula
                             Membro membro = TauraManager.buscarMembro(matTrim);
                             if (membro != null) {
                                 membrosResponsaveis.add(membro);
@@ -118,7 +120,6 @@ public class Tarefa extends Atividade {
             
             // Restaura o ID original
             tarefa.setId(id);
-            
             return tarefa;
         } catch (ParseException e) {
             throw new IllegalArgumentException("Erro ao fazer parsing da data: " + e.getMessage());

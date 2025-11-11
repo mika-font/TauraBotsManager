@@ -1,13 +1,16 @@
 package view;
 
+// FILE IMPORTS
 import model.Tarefa;
 
+// JAVAFX IMPORTS
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.IntegerProperty;
 import java.text.SimpleDateFormat;
 
+// Classe para representar os dados de uma Tarefa na tabela de tarefas
 public class TarefaTabData {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
@@ -19,6 +22,7 @@ public class TarefaTabData {
     private final StringProperty prazo;
     private final StringProperty responsaveis;
 
+    // Construtor
     public TarefaTabData(Tarefa tarefa) {
         this.id = new SimpleIntegerProperty(tarefa.getId());
         this.titulo = new SimpleStringProperty(tarefa.getTitulo());
@@ -29,7 +33,7 @@ public class TarefaTabData {
         this.responsaveis = new SimpleStringProperty(tarefa.getNomesResponsaveis());
     }
 
-    // Property methods para JavaFX
+    // Métodos de Propriedades para a Tabela
     public IntegerProperty idProperty() {
         return id;
     }
@@ -58,32 +62,12 @@ public class TarefaTabData {
         return responsaveis;
     }
 
-    // Getters simples
-    public int getId() {
-        return id.get();
-    }
-
-    public String getTitulo() {
-        return titulo.get();
-    }
-
-    public String getDescricao() {
-        return descricao.get();
-    }
-
-    public String getTipo() {
-        return tipo.get();
-    }
-
-    public String getStatus() {
-        return status.get();
-    }
-
-    public String getPrazo() {
-        return prazo.get();
-    }
-
-    public String getResponsaveis() {
-        return responsaveis.get();
-    }
+    // Getters
+    public int getId() {return id.get(); }
+    public String getTitulo() {return titulo.get(); }
+    public String getDescricao() {return descricao.get(); }
+    public String getTipo() {return tipo.get(); }
+    public String getStatus() {return status.get(); }
+    public String getPrazo() {return prazo.get(); }
+    public String getResponsaveis() {return responsaveis.get(); }
 }

@@ -10,6 +10,7 @@ public abstract class Atividade {
     protected String status;
     protected Date prazo;
 
+    // Construtor
     public Atividade(String titulo, String descricao, String status, Date prazo) {
         this.id = Ids;
         setTitulo(titulo);
@@ -19,6 +20,7 @@ public abstract class Atividade {
         Ids++;
     }
 
+    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -119,5 +121,6 @@ public abstract class Atividade {
         return true;
     }
 
+    // Método abstrato toString
     public abstract String toString();
 }

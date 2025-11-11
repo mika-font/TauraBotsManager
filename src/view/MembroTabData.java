@@ -1,12 +1,15 @@
 package view;
 
+// FILE IMPORTS
 import model.Membro;
 
+// JAVAFX IMPORTS
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.IntegerProperty;
 
+// Classe para representar os dados de um Membro na tabela de membros
 public class MembroTabData {
     private final StringProperty nome;
     private final StringProperty email;
@@ -14,6 +17,7 @@ public class MembroTabData {
     private final StringProperty cargo;
     private final IntegerProperty matricula;
 
+    // Construtor
     public MembroTabData(Membro membro) {
         this.nome = new SimpleStringProperty(membro.getNome());
         this.email = new SimpleStringProperty(membro.getEmail());
@@ -22,6 +26,7 @@ public class MembroTabData {
         this.matricula = new SimpleIntegerProperty(membro.getMatricula());
     }
 
+    // Métodos de Propriedades para a Tabela
     public StringProperty nomeProperty() {
         return nome;
     }
@@ -41,7 +46,7 @@ public class MembroTabData {
     public IntegerProperty matriculaProperty() {
         return matricula;
     }
-        
+    // Getters
     public String getNome() { return nome.get(); }
     public String getEmail() { return email.get(); }
     public String getTelefone() { return telefone.get(); }

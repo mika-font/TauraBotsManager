@@ -1,5 +1,6 @@
 package app;
 
+// FILES IMPORTS
 import model.Membro;
 import model.Atividade;
 import model.Tarefa;
@@ -33,11 +34,12 @@ public class TauraManager {
     private static Map<String, Membro> membros = new HashMap<>();
     private static List<Atividade> atividades = new ArrayList<>();
 
-    public TauraManager() {
+    // Construtor
+    public TauraManager() {}
 
-    }
-
+    // Métodos de Persistência de Dados
     public static void salvarDados() {
+        // Salva os dados de membros em dados_membros.txt
         try (PrintWriter writer = new PrintWriter(new FileWriter(DADOS_MEMBROS_FILE, false))) {
             membros.values().forEach(membro -> {
                 writer.println(membro.toString());
@@ -47,6 +49,7 @@ public class TauraManager {
             System.err.println("Erro ao salvar dados de membros: " + e.getMessage());
         }
 
+        // Salva os dados de atividades em dados_atividades.txt
         try (PrintWriter writer = new PrintWriter(new FileWriter(DADOS_ATIVIDADE_FILE, false))) {
             atividades.forEach(atividade -> {
                 writer.println(atividade.toString());
@@ -63,11 +66,12 @@ public class TauraManager {
         atividades.clear();
 
         try (Scanner leitor = new Scanner(new File(DADOS_MEMBROS_FILE))) {
+            // Enquanto houver linhas no arquivo
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 if (linha.trim().isEmpty())
                     continue;
-                try {
+                try { // Tenta parsear a linha em um membro
                     Membro membro = Membro.parseMembro(linha);
                     membros.put(String.valueOf(membro.getMatricula()), membro);
                 } catch (IllegalArgumentException e) {
@@ -82,11 +86,12 @@ public class TauraManager {
         }
 
         try (Scanner leitor = new Scanner(new File(DADOS_ATIVIDADE_FILE))) {
+            // Enquanto houver linhas no arquivo
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
                 if (linha.trim().isEmpty())
                     continue;
-
+                // Determina o tipo de atividade pela linha
                 String tipo = "";
                 if (linha.startsWith("TAREFA: ;")) {
                     tipo = "TAREFA";
@@ -97,7 +102,7 @@ public class TauraManager {
                     continue;
                 }
 
-                try {
+                try { // Tenta parsear a linha na atividade correta
                     if (tipo.equals("TAREFA")) {
                         Atividade atividade = Tarefa.parseTarefa(linha);
                         adicionarAtividade(atividade);
@@ -117,6 +122,7 @@ public class TauraManager {
             System.err.println("Erro ao carregar dados de atividades: " + e.getMessage());
         }
 
+        // Ajusta o ID para evitar conflitos
         int maxId = atividades.stream()
                 .mapToInt(Atividade::getId)
                 .max()
@@ -126,9 +132,12 @@ public class TauraManager {
     }
 
     // CRUD para Membros - Id único: matrícula
+
+    // Adiciona um novo membro à coleção
     public static void adicionarMembro(Membro membro) throws IllegalArgumentException {
         String matricula = String.valueOf(membro.getMatricula());
 
+        // Verifica se o membro já existe pela matrícula
         if (membros.containsKey(matricula)) {
             throw new IllegalArgumentException("Membro com a matrícula: " + matricula + " já existe.");
         }
@@ -136,6 +145,7 @@ public class TauraManager {
         membros.put(matricula, membro);
     }
 
+    // Atualiza um membro existente na coleção
     public static void atualizarMembro(Membro membro) throws IllegalArgumentException {
         String matricula = String.valueOf(membro.getMatricula());
 
@@ -146,6 +156,7 @@ public class TauraManager {
         membros.put(matricula, membro);
     }
 
+    // Remove um membro da coleção pela matrícula
     public static void removerMembro(String matricula) {
         if (matricula == null || matricula.trim().isEmpty()) {
             throw new IllegalArgumentException("A matrícula não pode ser vazia.");
@@ -158,6 +169,7 @@ public class TauraManager {
         membros.remove(matricula);
     }
 
+    // Busca um membro pela matrícula
     public static Membro buscarMembro(String matricula) throws IllegalArgumentException {
         if (matricula == null || matricula.trim().isEmpty()) {
             throw new IllegalArgumentException("A matrícula de busca não pode ser vazia.");
@@ -171,14 +183,18 @@ public class TauraManager {
         return membro;
     }
 
+    // Lista todos os membros cadastrados na coleção
     public static List<Membro> listarMembros() throws IllegalArgumentException {
         if (membros.isEmpty()) {
             throw new IllegalArgumentException("Nenhum membro cadastrado.");
         }
+        // Retorna uma lista imutável dos membros
         return Collections.unmodifiableList(new ArrayList<>(membros.values()));
     }
 
     // CRUD para Atividades - Id único: id
+
+    // Adiciona uma nova atividade à coleção
     public static void adicionarAtividade(Atividade atividade) throws IllegalArgumentException {
         if (atividade == null) {
             throw new IllegalArgumentException("Atividade não pode ser nula.");
@@ -191,6 +207,7 @@ public class TauraManager {
         atividades.add(atividade);
     }
 
+    // Remove uma atividade da coleção
     public static void removerAtividade(Atividade atividade) throws IllegalArgumentException {
         if (atividade == null) {
             throw new IllegalArgumentException("Atividade não pode ser nula.");
@@ -203,20 +220,22 @@ public class TauraManager {
         atividades.remove(atividade);
     }
 
-    public static void atualizarAtividade(Atividade atividadeAntiga, Atividade atividadeNova)
-            throws IllegalArgumentException {
+    // Atualiza uma atividade existente na coleção
+    public static void atualizarAtividade(Atividade atividadeAntiga, Atividade atividadeNova) throws IllegalArgumentException {
         if (atividadeAntiga == null || atividadeNova == null) {
             throw new IllegalArgumentException("Atividades não podem ser nulas.");
         }
 
+        // Encontra o índice da atividade antiga
         int id = atividades.indexOf(atividadeAntiga);
-        if (id == -1) {
+        if (id == -1) { // Atividade antiga não encontrada
             throw new IllegalArgumentException("Atividade antiga não encontrada.");
         }
 
         atividades.set(id, atividadeNova);
     }
 
+    // Busca uma atividade pelo ID
     public static Atividade buscarAtividade(int id) throws IllegalArgumentException {
         for (Atividade atividade : atividades) {
             if (atividade.getId() == id) {
@@ -226,14 +245,17 @@ public class TauraManager {
         throw new IllegalArgumentException("Atividade com ID: " + id + " não encontrada.");
     }
 
+    // Lista todas as atividades cadastradas na coleção
     public static List<Atividade> listarAtividades() {
         return Collections.unmodifiableList(atividades);
     }
 
+    // Retorna a lista de membros
     public static List<Membro> getMembros() {
         return listarMembros();
     }
 
+    // Retorna listas filtradas de Tarefas e Eventos
     public static List<Atividade> getTarefas() {
         return atividades.stream()
                 .filter(a -> a instanceof Tarefa)

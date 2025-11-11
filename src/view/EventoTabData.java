@@ -1,12 +1,16 @@
 package view;
 
+// FILE IMPORTS
 import model.Evento;
 
+// JAVAFX IMPORTS
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.IntegerProperty;
 import java.text.SimpleDateFormat;
+
+// Classe para representar os dados de um Evento na tabela de eventos
 
 public class EventoTabData {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -20,6 +24,7 @@ public class EventoTabData {
     private final StringProperty dataInicio;
     private final StringProperty dataFim;
 
+    // Construtor
     public EventoTabData(Evento evento) {
         this.id = new SimpleIntegerProperty(evento.getId());
         this.titulo = new SimpleStringProperty(evento.getTitulo());
@@ -31,7 +36,7 @@ public class EventoTabData {
         this.dataFim = new SimpleStringProperty(dateFormat.format(evento.getDataFim()));
     }
 
-    // Property methods para JavaFX
+    // Métodos de Propriedades para a Tabela
     public IntegerProperty idProperty() {
         return id;
     }
@@ -64,36 +69,13 @@ public class EventoTabData {
         return dataFim;
     }
 
-    // Getters simples
-    public int getId() {
-        return id.get();
-    }
-
-    public String getTitulo() {
-        return titulo.get();
-    }
-
-    public String getDescricao() {
-        return descricao.get();
-    }
-
-    public String getLocal() {
-        return local.get();
-    }
-
-    public String getStatus() {
-        return status.get();
-    }
-
-    public String getPrazo() {
-        return prazo.get();
-    }
-
-    public String getDataInicio() {
-        return dataInicio.get();
-    }
-
-    public String getDataFim() {
-        return dataFim.get();
-    }
+    // Getters
+    public int getId() {return id.get();}
+    public String getTitulo() {return titulo.get();}
+    public String getDescricao() {return descricao.get();}
+    public String getLocal() {return local.get();}
+    public String getStatus() {return status.get();}
+    public String getPrazo() {return prazo.get();}
+    public String getDataInicio() {return dataInicio.get();}
+    public String getDataFim() {return dataFim.get();}
 }

@@ -1,5 +1,6 @@
 package model;
 
+// IMPORTS
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +11,7 @@ public class Evento extends Atividade {
     private Date dataInicio;
     private Date dataFim;
 
+    // Construtor
     public Evento(String titulo, String descricao, String status, Date prazo, String local, Date dataInicio,
             Date dataFim) {
         super(titulo, descricao, status, prazo);
@@ -18,6 +20,7 @@ public class Evento extends Atividade {
         setDataFim(dataFim);
     }
 
+    // Getters e Setters
     public String getLocal() {
         return local;
     }
@@ -42,8 +45,10 @@ public class Evento extends Atividade {
         this.dataFim = dataFim;
     }
 
+    // Método de Parsing
     public static Evento parseEvento(String linha) throws IllegalArgumentException {
         try {
+            // Verifica se a linha começa com "EVENTO: "
             if (!linha.startsWith("EVENTO: ")) {
                 throw new IllegalArgumentException("Formato inválido: linha não começa com 'EVENTO: '");
             }
@@ -65,11 +70,11 @@ public class Evento extends Atividade {
             Date dataInicio = dateFormat.parse(partes[6].trim());
             Date dataFim = dateFormat.parse(partes[7].trim());
 
+            // Cria o objeto Evento
             Evento evento = new Evento(titulo, descricao, status, prazo, local, dataInicio, dataFim);
             
             // Restaura o ID original
             evento.setId(id);
-            
             return evento;
         } catch (ParseException e) {
             throw new IllegalArgumentException("Erro ao fazer parsing da data: " + e.getMessage());

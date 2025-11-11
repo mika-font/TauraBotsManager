@@ -75,18 +75,20 @@ public class Membro {
         return getNome() + ";" + getEmail() + ";" + getTelefone() + ";" + getCargo() + ";" + getMatricula();
     }
 
-    // String para Objeto
+    // Método de Parsing
     public static Membro parseMembro(String linha) {
         if (linha == null || linha.trim().isEmpty()) {
             throw new IllegalArgumentException("A linha fornecida é nula ou vazia.");
         }
 
+        // Divide a linha em partes usando o ponto e vírgula como delimitador
         String[] partes = linha.split(";");
 
         if (partes.length != 5) {
             throw new IllegalArgumentException("Formato de linha inválido para criar um Membro.");
         }
 
+        // Parsing dos campos
         String nome = partes[0];
         String email = partes[1];
         String telefone = partes[2];
@@ -96,7 +98,7 @@ public class Membro {
         return new Membro(nome, email, telefone, cargo, matricula);
     }
 
-    // Validação de Campos
+    // Métodos de validação
     public boolean validarEmail(String email) throws IllegalArgumentException {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("O email não pode ser nulo ou vazio.");

@@ -1,5 +1,6 @@
 package app;
 
+// FILES IMPORTS
 import controller.FXMLControlerApp;
 import controller.FXMLControlerEvento;
 import controller.FXMLControlerMembro;
@@ -34,9 +35,9 @@ public class App extends Application {
     private static FXMLControlerTarefa controllerTarefa;
     private static FXMLControlerEvento controllerEvento;
 
-    // Interface Gráfica com JavaFX
     @Override
     public void start(javafx.stage.Stage primaryStage) throws Exception {
+        // Inicialização da aplicação
         Stage = primaryStage;
         Manager = new TauraManager();
         primaryStage.setTitle(APP_TITLE);
@@ -50,7 +51,7 @@ public class App extends Application {
             System.err.println("Ícone não encontrado: " + e.getMessage());
         }
 
-        // Cache de Cenas
+        // Carregamento de Cenas
         FXMLLoader loaderCentral = new FXMLLoader(
             getClass().getClassLoader().getResource(FXML_FILE_CENTRAL)
         );
@@ -83,6 +84,7 @@ public class App extends Application {
         controllerEvento.setManager(Manager);
         formEvento = new Scene(eventoRoot, 800, 600);
 
+        // Definição da cena inicial
         primaryStage.setScene(central);
 
         primaryStage.setOnCloseRequest((WindowEvent event) -> {
@@ -97,6 +99,7 @@ public class App extends Application {
         primaryStage.show();
     }
 
+    // Método para trocar cenas e atualizar dados
     public static void setScene(String str) {
         switch (str) {
             case "central":
@@ -139,10 +142,12 @@ public class App extends Application {
         }
     }
 
+    // Método para obter o gerenciador de dados
     public static TauraManager getManager() {
         return Manager;
     }
 
+    // Método principal para iniciar a aplicação
     public static void main(String[] args) throws Exception {
         launch(args);
     }
