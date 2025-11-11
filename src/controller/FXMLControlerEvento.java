@@ -258,7 +258,7 @@ public class FXMLControlerEvento implements Initializable {
         mostrarFeedback("", "");
     }
 
-    private void carregarEventosNaTabela() {
+    public void carregarEventosNaTabela() {
         listaEventos.clear();
         
         try {
@@ -277,7 +277,7 @@ public class FXMLControlerEvento implements Initializable {
         }
     }
 
-    private void preencherCamposComEvento(EventoTabData evento) {
+    public void preencherCamposComEvento(EventoTabData evento) {
         try {
             Evento eventoCompleto = (Evento) TauraManager.buscarAtividade(evento.getId());
             
@@ -296,7 +296,7 @@ public class FXMLControlerEvento implements Initializable {
         }
     }
 
-    private void limparCampos() {
+    public void limparCampos() {
         txt_titulo.clear();
         txt_descricao.clear();
         txt_local.clear();

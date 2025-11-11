@@ -215,11 +215,23 @@ public class TauraManager {
         throw new IllegalArgumentException("Atividade com ID: " + id + " não encontrada.");
     }
 
-    public static List<Atividade> listarAtividades() throws IllegalArgumentException {
-        if (atividades.isEmpty()) {
-            throw new IllegalArgumentException("Nenhuma atividade cadastrada.");
-        }
+    public static List<Atividade> listarAtividades() {
+        return Collections.unmodifiableList(atividades);
+    }
 
-        return atividades;
+    public static List<Membro> getMembros() {
+        return listarMembros();
+    }
+
+    public static List<Atividade> getTarefas() {
+        return atividades.stream()
+                .filter(a -> a instanceof Tarefa)
+                .toList();
+    }
+
+    public static List<Atividade> getEventos() {
+        return atividades.stream()
+                .filter(a -> a instanceof Evento)
+                .toList();
     }
 }

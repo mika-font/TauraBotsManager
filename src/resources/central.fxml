@@ -62,7 +62,7 @@
             </AnchorPane>
          </children>
       </VBox>
-      <Pane prefHeight="500.0" prefWidth="500.0">
+      <Pane prefHeight="600.0" prefWidth="700.0">
          <children>
             <TabPane id="painel_geral" prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>

@@ -127,14 +127,9 @@ public class FXMLControlerMembro implements Initializable {
 
             // Adiciona ao Manager
             TauraManager.adicionarMembro(novoMembro);
-
-            // Atualiza a tabela
+            // Recarrega a tabela
             carregarMembrosNaTabela();
-
-            // Limpa os campos
             limparCampos();
-
-            // Feedback de sucesso
             mostrarFeedback("Membro cadastrado com sucesso!", "success");
 
         } catch (NumberFormatException e) {
@@ -235,7 +230,7 @@ public class FXMLControlerMembro implements Initializable {
         mostrarFeedback("", "");
     }
 
-    private void carregarMembrosNaTabela() {
+    public void carregarMembrosNaTabela() {
         listaMembros.clear();
 
         try {
@@ -252,7 +247,7 @@ public class FXMLControlerMembro implements Initializable {
         }
     }
 
-    private void preencherCamposComMembro(MembroTabData membro) {
+    public void preencherCamposComMembro(MembroTabData membro) {
         input_nome.setText(membro.getNome());
         input_email.setText(membro.getEmail());
         input_telefone.setText(membro.getTelefone());
@@ -261,7 +256,7 @@ public class FXMLControlerMembro implements Initializable {
         input_matricula.setDisable(true); // Não permite alterar matrícula
     }
 
-    private void limparCampos() {
+    public void limparCampos() {
         input_nome.clear();
         input_email.clear();
         input_telefone.clear();

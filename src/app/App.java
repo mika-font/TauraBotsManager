@@ -98,21 +98,36 @@ public class App extends Application {
     public static void setScene(String str) {
         switch (str) {
             case "central":
+                if(controllerApp != null){
+                    controllerApp.atualizarTelas();
+                }
                 Stage.setScene(central);
                 Stage.sizeToScene();
                 Stage.centerOnScreen();
                 break;
             case "formMembro":
+                if(controllerMembro != null){
+                    controllerMembro.carregarMembrosNaTabela();
+                    controllerMembro.limparCampos();
+                }
                 Stage.setScene(formMembro);
                 Stage.sizeToScene();
                 Stage.centerOnScreen();
                 break;
             case "formTarefa":
+                if(controllerTarefa != null){
+                    controllerTarefa.carregarTarefasNaTabela();
+                    controllerTarefa.limparCampos();
+                }
                 Stage.setScene(formTarefa);
                 Stage.sizeToScene();
                 Stage.centerOnScreen();
                 break;
             case "formEvento":
+                if(controllerEvento != null){
+                    controllerEvento.carregarEventosNaTabela();
+                    controllerEvento.limparCampos();
+                }
                 Stage.setScene(formEvento);
                 Stage.sizeToScene();
                 Stage.centerOnScreen();

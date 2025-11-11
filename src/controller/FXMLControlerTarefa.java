@@ -348,7 +348,7 @@ public class FXMLControlerTarefa implements Initializable {
         mostrarFeedback("", "");
     }
 
-    private void carregarMembrosDisponiveis() {
+    public void carregarMembrosDisponiveis() {
         membrosDisponiveis.clear();
         mapaMatriculaMembro.clear();
 
@@ -366,7 +366,7 @@ public class FXMLControlerTarefa implements Initializable {
         }
     }
 
-    private void carregarTarefasNaTabela() {
+    public void carregarTarefasNaTabela() {
         listaTarefas.clear();
 
         try {
@@ -385,7 +385,7 @@ public class FXMLControlerTarefa implements Initializable {
         }
     }
 
-    private void preencherCamposComTarefa(TarefaTabData tarefa) {
+    public void preencherCamposComTarefa(TarefaTabData tarefa) {
         try {
             Tarefa tarefaCompleta = (Tarefa) TauraManager.buscarAtividade(tarefa.getId());
 
@@ -407,7 +407,7 @@ public class FXMLControlerTarefa implements Initializable {
         }
     }
 
-    private void limparCampos() {
+    public void limparCampos() {
         txt_titulo.clear();
         txt_descricao.clear();
         combo_status.setValue(null);
