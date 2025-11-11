@@ -1,0 +1,50 @@
+:root {
+    --fundo-preto-principal: #1A1A1A;
+    --fundo-cinza-claro: #4A4A4A;
+    --fundo-preto-secundario: #2E2E2E;
+    --cor-primaria: #6C00A1;
+    --cor-secundaria: #3B016E;
+    --cor-alerta: #6b000077;
+    --cor-sucesso: #016f0177;
+    --cor-branco: #FFFFFF;
+}
+
+.root {
+    --fx-background-color: var(--fundo-preto-principal);
+    color: var(--cor-branco);
+    font-family: "Roboto", sans-serif;
+}
+
+.navegation{
+    background-color: var(--fundo-preto-secundario);
+    color: var(--cor-branco);
+    font-family: "Roboto", sans-serif;
+}
+
+.btn {
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    cursor: hand;
+}
+
+.btn_salvar_dados {
+    background-color: var(--cor-primaria);
+    color: var(--fundo-preto-principal);
+}
+
+.btn_salvar_dados:hover {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+.btn_gerir_membros {
+    background-color: var(--cor-primaria);
+    color: var(--fundo-preto-principal);
+}
+
+.btn_gerir_membros:hover {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+
