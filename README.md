@@ -6,8 +6,14 @@ O projeto Taura Bots Manager é um sistema de gerenciamento de atividades e memb
 
 O workspace contém duas pastas por padrão, onde:
 
+- `lib`: Contém as bibliotecas externas necessárias para o projeto;
 - `src`: Contém os arquivos fonte do projeto;
-- `resources`: Contém os recursos estáticos do projeto, como imagens e arquivos de configuração.
+  - `app`: Contém a classe principal que inicia o aplicativo JavaFX.
+  - `controller`: Contém as classes responsáveis pelo controle da lógica do aplicativo e interação com a interface gráfica.
+  - `model`: Contém as classes que representam os dados do sistema, como Membro e Atividade.
+  - `resources`: Contém os recursos estáticos, como arquivos de configuração e imagens.
+  - `view`: Contém os arquivos de visualização em tabela dos elementos das coleções.
+  
 
 ## Requisitos do Sistema
 
