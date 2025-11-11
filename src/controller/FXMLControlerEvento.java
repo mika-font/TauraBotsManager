@@ -207,6 +207,11 @@ public class FXMLControlerEvento implements Initializable {
     }
 
     @FXML
+    public void handleVoltar(ActionEvent event) {
+        App.setScene("central");
+    }
+
+    @FXML
     public void handleRemover(ActionEvent event) {
         try {
             EventoTabData selecionado = table_eventos.getSelectionModel().getSelectedItem();

@@ -2,8 +2,12 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -14,11 +18,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:controller="controller.FXMLControlerTarefa" id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:controller="controller.FXMLControlerTarefa" id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox id="root" prefHeight="400.0" prefWidth="200.0">
+      <VBox id="root" prefHeight="600.0" prefWidth="200.0">
          <children>
-            <AnchorPane id="navegation" prefHeight="597.0" prefWidth="200.0">
+            <AnchorPane id="navegation" prefHeight="600.0" prefWidth="200.0">
                <children>
                   <Pane id="painel_logo" layoutX="25.0" layoutY="24.0" prefHeight="70.0" prefWidth="150.0">
                      <children>
@@ -29,97 +33,123 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Button id="btn_cadastrar_membro" layoutX="25.0" layoutY="101.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Cadastrar Membro">
+                  <Button fx:id="btn_voltar" id="btn_voltar" layoutX="25.0" layoutY="101.0" mnemonicParsing="false" onAction="#handleVoltar" prefHeight="31.0" prefWidth="150.0" text="Voltar">
                      <styleClass>
                         <String fx:value="btn" />
-                        <String fx:value="btn_cadastrar_membro" />
                      </styleClass>
                   </Button>
-                  <Button id="btn_cadastrar_tarefa" layoutX="25.0" layoutY="138.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Cadastrar Tarefa">
-                     <styleClass>
-                        <String fx:value="btn" />
-                        <String fx:value="btn_cadastrar_tarefa" />
-                     </styleClass>
-                  </Button>
-                  <Button id="btn_salvar_dados" layoutX="25.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Salvar Dados" />
-                  <Pane id="painel_avisos" layoutY="350.0" prefHeight="150.0" prefWidth="200.0" />
-                  <Button id="btn_salvar_dados" layoutX="25.0" layoutY="250.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Carregar Dados">
-                     <styleClass>
-                        <String fx:value="btn" />
-                        <String fx:value="btn_carregar_dados" />
-                     </styleClass>
-                  </Button>
-                  <Button id="btn_cadastrar_evento" layoutX="25.0" layoutY="175.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Cadastrar Evento">
-                     <styleClass>
-                        <String fx:value="btn" />
-                        <String fx:value="btn_cadastrar_evento" />
-                     </styleClass>
-                  </Button>
+                  <Pane id="painel_avisos" layoutY="450.0" prefHeight="150.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <AnchorPane id="painel_membros" prefHeight="500.0" prefWidth="500.0" styleClass="painel_membros">
+      <AnchorPane id="painel_tarefas" prefHeight="600.0" prefWidth="700.0" styleClass="painel_tarefas">
          <children>
-            <Pane id="forms_membro" layoutX="30.0" layoutY="22.0" prefHeight="456.0" prefWidth="440.0" styleClass="forms_membro">
+            <Pane id="forms_tarefa" layoutX="20.0" layoutY="20.0" prefHeight="360.0" prefWidth="660.0" styleClass="forms_tarefa">
                <children>
-                  <Text layoutX="19.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Título:" wrappingWidth="50.0" />
-                  <Text layoutX="235.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prazo:" wrappingWidth="40.0" />
-                  <Text layoutX="19.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" wrappingWidth="50.0" />
-                  <Text layoutX="23.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Responsável 1:" wrappingWidth="93.0" />
-                  <Button id="btn_salvar_tarefa" layoutX="314.0" layoutY="411.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="112.0" text="Salvar Tarefa">
-                     <styleClass>
-                        <String fx:value="btn" />
-                        <String fx:value="btn_salvar_tarefa" />
-                     </styleClass>
-                  </Button>
-                  <TextField id="input_titulo" layoutX="74.0" layoutY="25.0" prefHeight="25.0" prefWidth="350.0">
+                  <!-- Título -->
+                  <Text layoutX="15.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Título:" />
+                  <TextField fx:id="txt_titulo" id="input_titulo" layoutX="70.0" layoutY="15.0" prefHeight="25.0" prefWidth="570.0">
                      <styleClass>
                         <String fx:value="input" />
-                        <String fx:value="input_titulo" />
                      </styleClass>
                   </TextField>
-                  <ChoiceBox id="input_status" layoutX="74.0" layoutY="144.0" prefHeight="25.0" prefWidth="150.0">
+                  
+                  <!-- Descrição -->
+                  <Text layoutX="15.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição:" />
+                  <TextArea fx:id="txt_descricao" id="input_descricao" layoutX="15.0" layoutY="75.0" prefHeight="60.0" prefWidth="630.0" wrapText="true">
                      <styleClass>
                         <String fx:value="input" />
-                        <String fx:value="input_status" />
-                     </styleClass>
-                  </ChoiceBox>
-                  <Text layoutX="19.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição:" wrappingWidth="60.0" />
-                  <TextArea id="input_descricao" layoutX="76.0" layoutY="62.0" prefHeight="70.0" prefWidth="350.0">
-                     <styleClass>
-                        <String fx:value="input" />
-                        <String fx:value="input_descricao" />
                      </styleClass>
                   </TextArea>
-                  <DatePicker id="input_prazo" layoutX="274.0" layoutY="144.0" prefHeight="25.0" prefWidth="150.0">
+                  
+                  <!-- Status e Tipo -->
+                  <Text layoutX="15.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" />
+                  <ComboBox fx:id="combo_status" id="combo_status" layoutX="70.0" layoutY="147.0" prefWidth="150.0">
                      <styleClass>
                         <String fx:value="input" />
-                        <String fx:value="input_prazo" />
+                     </styleClass>
+                  </ComboBox>
+                  
+                  <Text layoutX="250.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo:" />
+                  <ComboBox fx:id="combo_tipo" id="combo_tipo" layoutX="295.0" layoutY="147.0" prefWidth="150.0">
+                     <styleClass>
+                        <String fx:value="input" />
+                     </styleClass>
+                  </ComboBox>
+                  
+                  <!-- Prazo -->
+                  <Text layoutX="475.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prazo:" />
+                  <DatePicker fx:id="date_prazo" id="date_prazo" layoutX="525.0" layoutY="147.0" prefWidth="120.0">
+                     <styleClass>
+                        <String fx:value="input" />
                      </styleClass>
                   </DatePicker>
-                  <ChoiceBox id="input_resp" layoutX="116.0" layoutY="190.0" prefHeight="25.0" prefWidth="220.0">
-                     <styleClass>
-                        <String fx:value="input" />
-                        <String fx:value="input_resp" />
-                     </styleClass>
-                  </ChoiceBox>
-                  <Text layoutX="23.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Responsável 2:" wrappingWidth="93.0" />
-                  <ChoiceBox id="input_resp" layoutX="116.0" layoutY="224.0" prefHeight="25.0" prefWidth="220.0">
-                     <styleClass>
-                        <String fx:value="input" />
-                        <String fx:value="input_resp" />
-                     </styleClass>
-                  </ChoiceBox>
-                  <Text layoutX="23.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Responsável 3:" wrappingWidth="93.0" />
-                  <ChoiceBox id="input_resp" layoutX="116.0" layoutY="259.0" prefHeight="25.0" prefWidth="220.0">
-                     <styleClass>
-                        <String fx:value="input" />
-                        <String fx:value="input_resp" />
-                     </styleClass>
-                  </ChoiceBox>
+                  
+                  <!-- Seleção de Responsáveis -->
+                  <Text layoutX="15.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Membros Disponíveis:" />
+                  <ListView fx:id="list_membros_disponiveis" layoutX="15.0" layoutY="205.0" prefHeight="100.0" prefWidth="270.0" />
+                  
+                  <VBox layoutX="295.0" layoutY="230.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="btn_adicionar_responsavel" onAction="#handleAdicionarResponsavel" text="Adicionar →" prefWidth="100.0">
+                           <styleClass>
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="btn_remover_responsavel" onAction="#handleRemoverResponsavel" text="← Remover" prefWidth="100.0">
+                           <styleClass>
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </VBox>
+                  
+                  <Text layoutX="405.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Responsáveis Selecionados:" />
+                  <ListView fx:id="list_responsaveis" layoutX="405.0" layoutY="205.0" prefHeight="100.0" prefWidth="240.0" />
+                  
+                  <!-- Label de Feedback -->
+                  <Label fx:id="lbl_feedback" layoutX="15.0" layoutY="315.0" prefHeight="20.0" prefWidth="630.0" />
+                  
+                  <!-- Botões de Ação -->
+                  <HBox layoutX="15.0" layoutY="340.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="btn_cadastrar" onAction="#handleCadastrar" text="Cadastrar" prefWidth="100.0">
+                           <styleClass>
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="btn_atualizar" onAction="#handleAtualizar" text="Atualizar" prefWidth="100.0">
+                           <styleClass>
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="btn_remover" onAction="#handleRemover" text="Remover" prefWidth="100.0">
+                           <styleClass>
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="btn_limpar" onAction="#handleLimpar" text="Limpar" prefWidth="100.0">
+                           <styleClass>
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </Pane>
+            
+            <!-- Tabela de Tarefas -->
+            <TableView fx:id="table_tarefas" layoutX="20.0" layoutY="390.0" prefHeight="190.0" prefWidth="660.0">
+               <columns>
+                  <TableColumn fx:id="col_id" prefWidth="40.0" text="ID" />
+                  <TableColumn fx:id="col_titulo" prefWidth="150.0" text="Título" />
+                  <TableColumn fx:id="col_tipo" prefWidth="80.0" text="Tipo" />
+                  <TableColumn fx:id="col_status" prefWidth="100.0" text="Status" />
+                  <TableColumn fx:id="col_prazo" prefWidth="90.0" text="Prazo" />
+                  <TableColumn fx:id="col_responsaveis" prefWidth="200.0" text="Responsáveis" />
+               </columns>
+            </TableView>
          </children>
       </AnchorPane>
    </children>

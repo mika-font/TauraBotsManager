@@ -1,29 +1,40 @@
 package controller;
 
+import app.App;
 import app.TauraManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 public class FXMLControlerApp {
-    
-    @FXML private Button btnCadastrarMembro;
-    @FXML private Button btnCadastrarTarefa;
-    @FXML private Button btnCadastrarEvento;
-    @FXML private Button btnSalvarDados;
-    @FXML private Button btnCarregarDados;
-    @FXML private Pane painelAvisos;
-    
-    @FXML private VBox vboxTarefas;
-    @FXML private VBox vboxEventos;
-    @FXML private VBox vboxMembros;
-    
+
+    @FXML
+    private Button btnCadastrarMembro;
+    @FXML
+    private Button btnCadastrarTarefa;
+    @FXML
+    private Button btnCadastrarEvento;
+    @FXML
+    private Button btnSalvarDados;
+    @FXML
+    private Button btnCarregarDados;
+    @FXML
+    private Pane painelAvisos;
+
+    @FXML
+    private VBox vboxTarefas;
+    @FXML
+    private VBox vboxEventos;
+    @FXML
+    private VBox vboxMembros;
+
     private TauraManager manager;
 
     public void setManager(TauraManager manager) {
@@ -32,18 +43,19 @@ public class FXMLControlerApp {
     }
 
     @FXML
-    private void handleCadastrarMembro(ActionEvent event) {
-        navegarPara("formMembro.fxml", event);
+    private void handleCadastrarMembro(ActionEvent event) throws Exception {
+        System.out.println("Clicou em Cadastrar Membro");
+        App.setScene("formMembro");
     }
 
     @FXML
-    private void handleCadastrarTarefa(ActionEvent event) {
-        navegarPara("formTarefa.fxml", event);
+    private void handleCadastrarTarefa(ActionEvent event) throws Exception {
+        App.setScene("formTarefa");
     }
 
     @FXML
-    private void handleCadastrarEvento(ActionEvent event) {
-        navegarPara("formEvento.fxml", event);
+    private void handleCadastrarEvento(ActionEvent event) throws Exception {
+        App.setScene("formEvento");
     }
 
     @FXML
@@ -86,33 +98,6 @@ public class FXMLControlerApp {
         if (vboxEventos != null) {
             vboxEventos.getChildren().clear();
             // Adicionar elementos de evento dinamicamente
-        }
-    }
-
-    private void navegarPara(String fxmlArquivo, ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                getClass().getClassLoader().getResource("resources/" + fxmlArquivo)
-            );
-            Parent root = loader.load();
-            
-            // Passa o Manager para o próximo controlador
-            Object controller = loader.getController();
-            if (controller instanceof FXMLControlerMembro) {
-                ((FXMLControlerMembro) controller).setManager(manager);
-            } else if (controller instanceof FXMLControlerTarefa) {
-                ((FXMLControlerTarefa) controller).setManager(manager);
-            } else if (controller instanceof FXMLControlerEvento) {
-                ((FXMLControlerEvento) controller).setManager(manager);
-            }
-            
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            System.err.println("Erro ao navegar para " + fxmlArquivo + ": " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }

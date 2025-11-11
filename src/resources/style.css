@@ -9,6 +9,21 @@
     --cor-branco: #FFFFFF;
 }
 
+.feedback-success {
+    -fx-text-fill: #28a745;
+    -fx-font-weight: bold;
+}
+
+.feedback-error {
+    -fx-text-fill: #dc3545;
+    -fx-font-weight: bold;
+}
+
+.feedback-warning {
+    -fx-text-fill: #ffc107;
+    -fx-font-weight: bold;
+}
+
 .root {
     --fx-background-color: var(--fundo-preto-principal);
     color: var(--cor-branco);
