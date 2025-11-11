@@ -49,6 +49,7 @@
                   <Button fx:id="btnSalvarDados" id="btn_salvar_dados" layoutX="25.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleSalvarDados" prefHeight="31.0" prefWidth="150.0" text="Salvar Dados">
                      <styleClass>
                         <String fx:value="btn" />
+                        <String fx:value="btn_salvar_dados" />
                      </styleClass>
                   </Button>
                   <Button fx:id="btnCarregarDados" id="btn_carregar_dados" layoutX="25.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleCarregarDados" prefHeight="31.0" prefWidth="150.0" text="Carregar Dados">
@@ -71,7 +72,6 @@
                     <ScrollPane fitToWidth="true" fitToHeight="true">
                       <content>
                         <VBox fx:id="vboxTarefas" spacing="10.0" style="-fx-padding: 10;">
-                          <!-- Tarefas serão adicionadas dinamicamente aqui -->
                         </VBox>
                       </content>
                     </ScrollPane>
@@ -82,7 +82,6 @@
                     <ScrollPane fitToWidth="true" fitToHeight="true">
                       <content>
                         <VBox fx:id="vboxEventos" spacing="10.0" style="-fx-padding: 10;">
-                          <!-- Eventos serão adicionados dinamicamente aqui -->
                         </VBox>
                       </content>
                     </ScrollPane>
@@ -93,7 +92,6 @@
                     <ScrollPane fitToWidth="true" fitToHeight="true">
                       <content>
                         <VBox fx:id="vboxMembros" spacing="10.0" style="-fx-padding: 10;">
-                          <!-- Membros serão adicionados dinamicamente aqui -->
                         </VBox>
                       </content>
                     </ScrollPane>

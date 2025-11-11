@@ -59,6 +59,7 @@ public class App extends Application {
         controllerApp = loaderCentral.getController();
         controllerApp.setManager(Manager);
         central = new Scene(centralRoot, 900, 600);
+        central.getStylesheets().add(getClass().getClassLoader().getResource("resources/style.css").toExternalForm());
 
         FXMLLoader loaderMembro = new FXMLLoader(
             getClass().getClassLoader().getResource(FXML_FILE_MEMBRO)
@@ -67,6 +68,7 @@ public class App extends Application {
         controllerMembro = loaderMembro.getController();
         controllerMembro.setManager(Manager);
         formMembro = new Scene(membroRoot, 700, 550);
+        formMembro.getStylesheets().add(getClass().getClassLoader().getResource("resources/style.css").toExternalForm());
 
         FXMLLoader loaderTarefa = new FXMLLoader(
             getClass().getClassLoader().getResource(FXML_FILE_TAREFA)
@@ -75,6 +77,7 @@ public class App extends Application {
         controllerTarefa = loaderTarefa.getController();
         controllerTarefa.setManager(Manager);
         formTarefa = new Scene(tarefaRoot, 920, 650);
+        formTarefa.getStylesheets().add(getClass().getClassLoader().getResource("resources/style.css").toExternalForm());
 
         FXMLLoader loaderEvento = new FXMLLoader(
             getClass().getClassLoader().getResource(FXML_FILE_EVENTO)
@@ -83,6 +86,7 @@ public class App extends Application {
         controllerEvento = loaderEvento.getController();
         controllerEvento.setManager(Manager);
         formEvento = new Scene(eventoRoot, 800, 600);
+        formEvento.getStylesheets().add(getClass().getClassLoader().getResource("resources/style.css").toExternalForm());
 
         // Definição da cena inicial
         primaryStage.setScene(central);
