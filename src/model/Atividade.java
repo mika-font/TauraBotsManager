@@ -39,6 +39,10 @@ public abstract class Atividade {
         return prazo;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setTitulo(String titulo) {
         if (validarTitulo(titulo)) {
             this.titulo = titulo;

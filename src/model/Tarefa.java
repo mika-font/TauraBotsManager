@@ -3,6 +3,7 @@ package model;
 import app.TauraManager;
 
 import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
@@ -70,38 +71,62 @@ public class Tarefa extends Atividade {
         responsaveis.remove(membro);
     }
 
-    public static Tarefa parseTarefa(String linha) {
-        if (linha == null || linha.trim().isEmpty()) {
-            throw new IllegalArgumentException("A linha fornecida é nula ou vazia.");
-        }
-
-        String[] partes = linha.split(";");
-
-        if (partes.length != 7) {
-            throw new IllegalArgumentException("Formato de linha inválido para criar uma Tarefa.");
-        }
-
-        String titulo = partes[1];
-        String descricao = partes[2];
-        String status = partes[3];
-        Date prazo;
-        List<Membro> membrosResponsaveis = new ArrayList<>();
-        String tipo = partes[6];
-
+    public static Tarefa parseTarefa(String linha) throws IllegalArgumentException {
         try {
-            prazo = dateFormat.parse(partes[4]);
-        } catch (java.text.ParseException e) {
-            throw new IllegalArgumentException("Erro ao converter data: " + e.getMessage());
-        }
+            // Remove o prefixo "TAREFA: ;"
+            if (!linha.startsWith("TAREFA: ;")) {
+                throw new IllegalArgumentException("Formato inválido: linha não começa com 'TAREFA: ;'");
+            }
+            
+            String dados = linha.substring(9); // Remove "TAREFA: ;"
+            String[] partes = dados.split(";");
 
-        String[] matriculasStr = partes[5].split(",");
-        for (String matriculaStr : matriculasStr) {
-            int matricula = Integer.parseInt(matriculaStr.trim());
-            Membro membro = TauraManager.buscarMembro(String.valueOf(matricula));
-            membrosResponsaveis.add(membro);
-        }
+            if (partes.length < 7) {
+                throw new IllegalArgumentException("Formato inválido: número insuficiente de campos. Esperado 7, recebido " + partes.length);
+            }
 
-        return new Tarefa(titulo, descricao, status, prazo, membrosResponsaveis, tipo);
+            // Parsing dos campos
+            int id = Integer.parseInt(partes[0].trim());
+            String titulo = partes[1].trim();
+            String descricao = partes[2].trim();
+            String status = partes[3].trim();
+            Date prazo = dateFormat.parse(partes[4].trim());
+            String tipo = partes[6].trim();
+
+            // Parsing dos responsáveis
+            List<Membro> membrosResponsaveis = new ArrayList<>();
+            String matriculasStr = partes[5].trim();
+            
+            if (!matriculasStr.isEmpty() && !matriculasStr.equals("SEM_RESPONSAVEIS")) {
+                String[] matriculas = matriculasStr.split(",");
+                for (String matricula : matriculas) {
+                    String matTrim = matricula.trim();
+                    if (!matTrim.isEmpty()) {
+                        try {
+                            Membro membro = TauraManager.buscarMembro(matTrim);
+                            if (membro != null) {
+                                membrosResponsaveis.add(membro);
+                            }
+                        } catch (IllegalArgumentException e) {
+                            System.err.println("Aviso: Membro com matrícula '" + matTrim + "' não encontrado ao carregar tarefa.");
+                        }
+                    }
+                }
+            }
+
+            Tarefa tarefa = new Tarefa(titulo, descricao, status, prazo, membrosResponsaveis, tipo);
+            
+            // Restaura o ID original
+            tarefa.setId(id);
+            
+            return tarefa;
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Erro ao fazer parsing da data: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Erro ao fazer parsing do ID: " + e.getMessage());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Erro ao fazer parsing da tarefa: " + e.getMessage());
+        }
     }
 
     // Métodos de Validação
@@ -123,7 +148,7 @@ public class Tarefa extends Atividade {
     // Método Abstrato de Atividade
     @Override
     public String toString() {
-       return "TAREFA: " + getId() + ";" + getTitulo() + ";" + getDescricao() + ";" + getStatus() + ";" + dateFormat.format(getPrazo()) + ";"
+       return "TAREFA: ;" + getId() + ";" + getTitulo() + ";" + getDescricao() + ";" + getStatus() + ";" + dateFormat.format(getPrazo()) + ";"
                + getMatriculasResponsaveis() + ";" + getTipo();
     }
 }

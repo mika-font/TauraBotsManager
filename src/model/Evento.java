@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Evento extends Atividade {
@@ -41,35 +42,42 @@ public class Evento extends Atividade {
         this.dataFim = dataFim;
     }
 
-    public static Evento parseEvento(String linha) {
-        if (linha == null || linha.trim().isEmpty()) {
-            throw new IllegalArgumentException("A linha fornecida é nula ou vazia.");
-        }
-
-        String Nlinha = linha.substring(linha.indexOf(":") + 1).trim();
-        String[] partes = Nlinha.split(";");
-
-        if (partes.length != 8) {
-            throw new IllegalArgumentException("Formato de linha inválido para criar um Evento.");
-        }
-
-        String titulo = partes[1];
-        String descricao = partes[2];
-        String status = partes[3];
-        Date prazo;
-        Date dataInicio;
-        Date dataFim;
-        String local = partes[5];
-
+    public static Evento parseEvento(String linha) throws IllegalArgumentException {
         try {
-            prazo = dateFormat.parse(partes[4]);
-            dataInicio = dateFormat.parse(partes[6]);
-            dataFim = dateFormat.parse(partes[7]);
-        } catch (java.text.ParseException e) {
-            throw new IllegalArgumentException("Erro ao converter datas: " + e.getMessage());
-        }
+            if (!linha.startsWith("EVENTO: ")) {
+                throw new IllegalArgumentException("Formato inválido: linha não começa com 'EVENTO: '");
+            }
 
-        return new Evento(titulo, descricao, status, prazo, local, dataInicio, dataFim);
+            String dados = linha.substring(9); // Remove "EVENTO: "
+            String[] partes = dados.split(";");
+
+            if (partes.length < 8) {
+                throw new IllegalArgumentException("Formato inválido: número insuficiente de campos. Esperado 8, recebido " + partes.length);
+            }
+
+            // Parsing dos campos
+            int id = Integer.parseInt(partes[0].trim());
+            String titulo = partes[1].trim();
+            String descricao = partes[2].trim();
+            String status = partes[3].trim();
+            Date prazo = dateFormat.parse(partes[4].trim());
+            String local = partes[5].trim();
+            Date dataInicio = dateFormat.parse(partes[6].trim());
+            Date dataFim = dateFormat.parse(partes[7].trim());
+
+            Evento evento = new Evento(titulo, descricao, status, prazo, local, dataInicio, dataFim);
+            
+            // Restaura o ID original
+            evento.setId(id);
+            
+            return evento;
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Erro ao fazer parsing da data: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Erro ao fazer parsing do ID: " + e.getMessage());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Erro ao fazer parsing do evento: " + e.getMessage());
+        }
     }
 
     // Métodos de Validação
@@ -105,7 +113,7 @@ public class Evento extends Atividade {
     // Método Abstrato de Atividade
     @Override
     public String toString() {
-        return "EVENTO: " + getId() + ";" + getTitulo() + ";" + getDescricao() + ";" + getStatus() + ";"
+        return "EVENTO: ;" + getId() + ";" + getTitulo() + ";" + getDescricao() + ";" + getStatus() + ";"
                 + dateFormat.format(getPrazo()) + ";"
                 + getLocal() + ";" + dateFormat.format(getDataInicio()) + ";" + dateFormat.format(getDataFim());
     }

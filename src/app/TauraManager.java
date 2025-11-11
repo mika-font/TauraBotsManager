@@ -34,7 +34,7 @@ public class TauraManager {
     private static List<Atividade> atividades = new ArrayList<>();
 
     public TauraManager() {
-        carregarDados();
+
     }
 
     public static void salvarDados() {
@@ -58,6 +58,7 @@ public class TauraManager {
     }
 
     public static void carregarDados() {
+        System.out.println("Carregando dados...");
         membros.clear();
         atividades.clear();
 
@@ -86,18 +87,27 @@ public class TauraManager {
                 if (linha.trim().isEmpty())
                     continue;
 
-                String tipo = linha.substring(0, linha.indexOf(";"));
+                String tipo = "";
+                if (linha.startsWith("TAREFA: ;")) {
+                    tipo = "TAREFA";
+                } else if (linha.startsWith("EVENTO: ;")) {
+                    tipo = "EVENTO";
+                } else {
+                    System.err.println("Linha com formato desconhecido: " + linha);
+                    continue;
+                }
 
                 try {
-                    if (tipo.equals("TAREFA: ")) {
+                    if (tipo.equals("TAREFA")) {
                         Atividade atividade = Tarefa.parseTarefa(linha);
                         adicionarAtividade(atividade);
-                    } else if (tipo.equals("EVENTO: ")) {
+                    } else if (tipo.equals("EVENTO")) {
                         Atividade atividade = Evento.parseEvento(linha);
                         adicionarAtividade(atividade);
                     }
                 } catch (Exception e) {
-                    System.err.println("Erro ao carregar dados de atividade: " + e.getMessage());
+                    System.err.println("Erro ao carregar atividade da linha: " + linha);
+                    System.err.println("Detalhes do erro: " + e.getMessage());
                 }
             }
             System.out.println("Dados de Atividades carregados com sucesso.");
@@ -112,6 +122,7 @@ public class TauraManager {
                 .max()
                 .orElse(0);
         Atividade.resetIds(maxId);
+        System.out.println("Dados carregados com sucesso.");
     }
 
     // CRUD para Membros - Id único: matrícula

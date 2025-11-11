@@ -36,7 +36,7 @@ public class FXMLControlerApp {
 
     public void setManager(TauraManager manager) {
         this.manager = manager;
-        carregarDados();
+        atualizarTelas();
     }
 
     @FXML
@@ -66,17 +66,9 @@ public class FXMLControlerApp {
 
     @FXML
     private void handleCarregarDados(ActionEvent event) {
-        carregarDados();
-    }
-
-    private void carregarDados() {
-        try {
-            TauraManager.carregarDados();
-            atualizarTelas();
-            System.out.println("Dados carregados com sucesso!");
-        } catch (Exception e) {
-            System.err.println("Erro ao carregar dados: " + e.getMessage());
-        }
+        System.out.println("Carregando dados...");
+        TauraManager.carregarDados();
+        atualizarTelas();
     }
 
     public void atualizarTelas() {
